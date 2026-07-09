@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { Footer } from "./components/footer";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -113,9 +114,10 @@ function App() {
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+     <div className="ticks"></div>
+     <section id="spacer"></section>
+    <Footer />
+     </>
   )
 }
 
