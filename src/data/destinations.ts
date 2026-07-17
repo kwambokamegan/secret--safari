@@ -1,4 +1,17 @@
-export const destinations = [
+export interface Destination {
+  id: number;
+  name: string;
+  category: string;
+  location: string;
+  image: string;
+  description: string;
+  accommodation: {
+    name: string;
+    description: string;
+  };
+}
+
+export const destinations: Destination[] = [
   {
     id: 1,
     name: "Maralal Wildlife Sanctuary",
