@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { FaInstagram, FaTiktok } from "react-icons/fa";
 
 export function Footer() {
@@ -7,42 +8,42 @@ export function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
 
           {/* Brand */}
-          <a href="#" className="text-xl font-bold shrink-0">
+          <Link href="/" className="text-xl font-bold shrink-0">
             Secret Safari
-          </a>
+          </Link>
 
-          {/* Explore + Support links, flattened into one row */}
+          {/* Navigation Links */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <Link
+              href="/"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Home
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              Destinations
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              Experiences
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              Gallery
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              Travel Blog
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              About Us
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            </Link>
+
+            <Link
+              href="/discover"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Discover
+            </Link>
+
+            <Link
+              href="/blogs"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Blogs
+            </Link>
+
+            <Link
+              href="/contact"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               Contact
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              FAQs
-            </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
-              Privacy Policy
-            </a>
+            </Link>
           </nav>
 
-          {/* Contact info + social buttons */}
+          {/* Contact Info + Social Icons */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-300 shrink-0">
             <span>📍 Nairobi, Kenya</span>
             <span>✉️ hello@secretsafari.co.ke</span>
