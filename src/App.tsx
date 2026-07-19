@@ -1,11 +1,14 @@
 import { useState } from 'react'
+import { Switch, Route } from 'wouter'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { Navbar } from "./components/navbar";
 import { Footer } from "./components/footer";
+import NotFound from "./pages/not-found";
 
-function App() {
+function Home() {
   const [count, setCount] = useState(0)
 
   return (
@@ -114,10 +117,24 @@ function App() {
         </div>
       </section>
 
-     <div className="ticks"></div>
-     <section id="spacer"></section>
-    <Footer />
-     </>
+      <div className="ticks"></div>
+      <section id="spacer"></section>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Navbar />
+
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+
+      <Footer />
+    </>
   )
 }
 
