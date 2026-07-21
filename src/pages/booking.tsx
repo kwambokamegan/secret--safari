@@ -33,6 +33,8 @@ export default function Booking() {
   const [isAvailable, setIsAvailable] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"mpesa" | "card">("mpesa");
+  const [mpesaPhone, setMpesaPhone] = useState("");
 
   const selectedDest = useMemo(
     () => destinations.find(d => d.id === selectedDestId) || destinations[0],
@@ -183,29 +185,94 @@ export default function Booking() {
                   Your Total: <span className="font-bold text-foreground">KSh {total.toLocaleString()}</span> / night
                 </DialogDescription>
               </DialogHeader>
-              <form onSubmit={handleConfirmPayment} className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label>Email</Label>
-                  <Input required type="email" placeholder="you@example.com" />
-                </div>
-                <div className="space-y-2">
-                  <Label>Card Number</Label>
-                  <Input required placeholder="0000 0000 0000 0000" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
+
+              {/* Payment method toggle */}
+              <div className="flex gap-2 p-1 bg-muted rounded-lg">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("mpesa")}
+                  className={`flex-1 py-2 rounded-md text-sm font-semibold transition-colors ${
+                    paymentMethod === "mpesa"
+                      ? "bg-green-600 text-white"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  M-Pesa
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={`flex-1 py-2 rounded-md text-sm font-semibold transition-colors ${
+                    paymentMethod === "card"
+                      ? "bg-green-600 text-white"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  Card
+                </button>
+              </div>
+
+              {paymentMethod === "mpesa" ? (
+                <form onSubmit={handleConfirmPayment} className="space-y-4 py-4">
+                  <div className="p-4 bg-muted/50 border rounded-lg space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Paybill Number:</span>
+                      <span className="font-bold text-foreground">877</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Account Number:</span>
+                      <span className="font-bold text-foreground">54363</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Amount:</span>
+                      <span className="font-bold text-foreground">KSh {total.toLocaleString()}</span>
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <Label>Expiry</Label>
-                    <Input required placeholder="MM/YY" />
+                    <Label>M-Pesa Phone Number</Label>
+                    <Input
+                      required
+                      type="tel"
+                      placeholder="07XX XXX XXX"
+                      value={mpesaPhone}
+                      onChange={(e) => setMpesaPhone(e.target.value)}
+                    />
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    You'll receive an M-Pesa prompt on your phone. Enter your PIN there to complete the payment.
+                  </p>
+
+                  <DialogFooter className="pt-4">
+                    <Button type="submit" className="w-full h-12 text-lg">Send Payment Prompt</Button>
+                  </DialogFooter>
+                </form>
+              ) : (
+                <form onSubmit={handleConfirmPayment} className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label>Email</Label>
+                    <Input required type="email" placeholder="you@example.com" />
                   </div>
                   <div className="space-y-2">
-                    <Label>CVV</Label>
-                    <Input required type="password" maxLength={4} />
+                    <Label>Card Number</Label>
+                    <Input required placeholder="0000 0000 0000 0000" />
                   </div>
-                </div>
-                <DialogFooter className="pt-4">
-                  <Button type="submit" className="w-full h-12 text-lg">Pay & Confirm</Button>
-                </DialogFooter>
-              </form>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Expiry</Label>
+                      <Input required placeholder="MM/YY" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>CVV</Label>
+                      <Input required type="password" maxLength={4} />
+                    </div>
+                  </div>
+                  <DialogFooter className="pt-4">
+                    <Button type="submit" className="w-full h-12 text-lg">Pay & Confirm</Button>
+                  </DialogFooter>
+                </form>
+              )}
             </>
           ) : (
             <div className="py-12 text-center space-y-6">
