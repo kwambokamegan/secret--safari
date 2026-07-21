@@ -10,6 +10,15 @@ import { destinations } from "@/data/destinations";
 
 const CATEGORIES = ["All", "Wildlife", "Landscapes", "Beaches"];
 
+// Maps each filter button label to the keyword(s) that actually appear
+// inside the longer category strings stored in destinations.ts
+// (e.g. "Wildlife & Safari", "Scenic & Landscape", "Coastal & Cultural").
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  Wildlife: ["Wildlife"],
+  Landscapes: ["Landscape"],
+  Beaches: ["Coastal"],
+};
+
 export default function Discover() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -18,7 +27,13 @@ export default function Discover() {
     return destinations.filter((dest) => {
       const matchesSearch = dest.name.toLowerCase().includes(search.toLowerCase()) || 
                             dest.category.toLowerCase().includes(search.toLowerCase());
-      const matchesCategory = activeCategory === "All" || dest.category === activeCategory;
+
+      const matchesCategory =
+        activeCategory === "All" ||
+        CATEGORY_KEYWORDS[activeCategory]?.some((keyword) =>
+          dest.category.toLowerCase().includes(keyword.toLowerCase())
+        );
+
       return matchesSearch && matchesCategory;
     });
   }, [search, activeCategory]);
