@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { MapPin, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { destinations } from "@/data/destinations";
+import ImageSlideshow from "@/components/ImageSlideshow";
 
 export default function Destination() {
   const [, params] = useRoute("/destination/:id");
@@ -16,11 +17,9 @@ export default function Destination() {
     <main className="min-h-screen bg-background pb-24">
       {/* Hero */}
       <div className="relative h-[60vh] md:h-[70vh] w-full">
-        <img 
-          src={destination.image} 
-          alt={destination.name} 
-          className="w-full h-full object-cover"
-          onError={(e) => { e.currentTarget.src = "/images/hero/hero-1.png"; }}
+        <ImageSlideshow
+          images={destination.images}
+          alt={destination.name}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 text-white">

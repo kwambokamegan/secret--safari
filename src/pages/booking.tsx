@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { destinations } from "@/data/destinations";
 import { useToast } from "@/hooks/use-toast";
+import ImageSlideshow from "@/components/ImageSlideshow";
 
 const PRICING = {
   "Full Board": 15000,
@@ -140,11 +141,9 @@ export default function Booking() {
             <div>
               <Card className="overflow-hidden border-0 shadow-xl bg-card">
                 <div className="aspect-[4/3] w-full">
-                  <img
-                    src={selectedDest.image}
+                  <ImageSlideshow
+                    images={selectedDest.images}
                     alt={selectedDest.accommodation.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.src = "/images/hero/hero-5.png"; }}
                   />
                 </div>
                 <CardContent className="p-8">
