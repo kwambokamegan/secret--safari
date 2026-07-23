@@ -7,7 +7,7 @@ import ImageSlideshow from "@/components/ImageSlideshow";
 
 export default function Destination() {
   const [, params] = useRoute("/destination/:id");
-  const destination = destinations.find(d => String(d.id) === params?.id);
+const destination = destinations.find(d => String(d.id) === params?.id);
 
   if (!destination) {
     return <div className="min-h-screen pt-32 text-center">Destination not found.</div>;
