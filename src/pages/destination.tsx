@@ -7,10 +7,19 @@ import ImageSlideshow from "@/components/ImageSlideshow";
 
 export default function Destination() {
   const [, params] = useRoute("/destination/:id");
-const destination = destinations.find(d => String(d.id) === params?.id);
+  const routeId = params?.id;
 
+  const destination = destinations.find(
+    (d) => String(d.id) === routeId
+  );
+
+  // Check if destination exists
   if (!destination) {
-    return <div className="min-h-screen pt-32 text-center">Destination not found.</div>;
+    return (
+      <div className="min-h-screen pt-32 text-center">
+        Destination not found.
+      </div>
+    );
   }
 
   return (
@@ -21,17 +30,29 @@ const destination = destinations.find(d => String(d.id) === params?.id);
           images={destination.images}
           alt={destination.name}
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
         <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 text-white">
           <div className="container mx-auto">
-            <Link href="/discover" className="inline-flex items-center text-sm font-medium hover:text-primary mb-6 transition-colors">
-              <ArrowLeft className="mr-2 h-4 w-4" /> Back to Discover
+            <Link
+              href="/discover"
+              className="inline-flex items-center text-sm font-medium hover:text-primary mb-6 transition-colors"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Discover
             </Link>
+
             <div className="flex items-center gap-3 text-primary-foreground/80 mb-4 font-semibold tracking-wider uppercase text-sm">
               <MapPin size={18} />
-              <span>{destination.category} • {destination.location}</span>
+              <span>
+                {destination.category} • {destination.location}
+              </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6">{destination.name}</h1>
+
+            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6">
+              {destination.name}
+            </h1>
           </div>
         </div>
       </div>
@@ -39,7 +60,7 @@ const destination = destinations.find(d => String(d.id) === params?.id);
       {/* Content */}
       <div className="container mx-auto px-4 mt-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-          <motion.div 
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="lg:col-span-2 prose prose-lg dark:prose-invert max-w-none font-serif text-lg leading-relaxed"
@@ -49,18 +70,29 @@ const destination = destinations.find(d => String(d.id) === params?.id);
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="space-y-8"
           >
             <div className="bg-card border rounded-2xl p-8 shadow-sm">
-              <h3 className="font-serif text-2xl font-bold mb-2">Book this escape</h3>
-              <p className="text-muted-foreground mb-2 font-semibold">{destination.accommodation.name}</p>
-              <p className="text-muted-foreground mb-8">{destination.accommodation.description}</p>
+              <h3 className="font-serif text-2xl font-bold mb-2">
+                Book this escape
+              </h3>
+
+              <p className="text-muted-foreground mb-2 font-semibold">
+                {destination.accommodation.name}
+              </p>
+
+              <p className="text-muted-foreground mb-8">
+                {destination.accommodation.description}
+              </p>
+
               <Button size="lg" className="w-full text-lg h-14" asChild>
-                <Link href={`/booking?destination=${destination.id}`}>Book Now</Link>
+                <Link href={`/booking?destination=${destination.id}`}>
+                  Book Now
+                </Link>
               </Button>
             </div>
           </motion.div>
